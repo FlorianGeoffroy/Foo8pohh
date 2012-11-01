@@ -41,7 +41,7 @@ class IATron :
 				print ' @ '+str(i-1)+' : '+str(r[i])
 
 		print '>>> '+str(self.c)+' test'
-		print '>>> '+str((self.v)/(self.c))+' coups moyenne'
+		print '>>> '+str((self.v)/(self.c))+' coups en moyenne'
 
 	def display(self, x):
 		if(x!=0) :
