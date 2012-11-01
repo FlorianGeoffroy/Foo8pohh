@@ -55,6 +55,9 @@ class IATron :
 				turtle.setheading(90)
 			turtle.fd(100);
 
+	def randomMode(self, mode):
+		return random.randint(1, 4)
+
 	def core(self):
 		turtle.screensize(10000,10000)
 		turtle.clearscreen()
@@ -65,7 +68,7 @@ class IATron :
 		while(self.map[p][q]!=1) :
 			self.map[p][q]=1
 			self.display(x)
-			x = random.randint(1, 4)
+			x = self.randomMode(1)
 			if(x==1) :
 				q += 1
 			if(x==2) :
