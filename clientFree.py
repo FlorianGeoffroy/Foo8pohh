@@ -23,74 +23,69 @@ class IATron :
 			self.map = [[0 for x in xrange(n*10)] for x in xrange(m*10)]
 			self.core();
 
-	def statistics(self):		
-		print '        STATISTIQUES        '
-		print '============================'
-		(self.s).sort()
-		r = (len(self.s)*[0])
-		j = 0;
-		for i in range(len(self.s)):
-			j += 1
-			while((self.s).count(i)!=0):
-				(self.s).remove(i)
-				r[j]=r[j]+1
-		for i in range(len(r)):
-			if(r[i]!=0):
-				print ' @ '+str(i-1)+' : '+str(r[i])
-
-		print '>>> '+str(self.c)+' test'
-		print '>>> '+str((self.v)/(self.c))+' coups en moyenne'
-
 	def display(self, x):
 		if(x!=0) :
-			if(x==1) :
-				turtle.setheading(0)
-			if(x==2) :
-				turtle.setheading(270)
-			if(x==3) :
-				turtle.setheading(180)
-			if(x==4) :
-				turtle.setheading(90)
+			turtle.setheading(x)
 			turtle.fd(self.z*10);
 
 	def randomMode(self, mode):
-		return random.randint(1, 4)
+		return random.randint(1, 360)
 
 	def core(self):
 		turtle.screensize(10000,10000)
 		turtle.clearscreen()
 		turtle.bgcolor("black")
+
+		# select the origin in middle of the map
 		q = self.n/2
 		p = self.m/2
+		
 		# origin
 		turtle.pencolor("red")
 		turtle.fill(True)
 		for _ in range(3): turtle.forward(5); turtle.left(120)
 		turtle.fill(False)
-		# 
+		
+		# init
 		x = 0
 		y = 0
+		
 		#while(self.map[p][q]!=1) :
 		while(True) :
 			self.map[p][q]+=1
-			c = self.map[p][q]
-			if(c==1): turtle.pencolor("white")
-			elif(c==2): turtle.pencolor("cyan")
-			elif(c==3): turtle.pencolor("green")
-			elif(c==4): turtle.pencolor("pink")
-			elif(c==5): turtle.pencolor("red")
-			elif(c==6): turtle.pencolor("orange")
-			else : turtle.pencolor("yellow")
+			
+			# current color
+			t = 0;
+			if(self.map[p+1][q+1]==1) : t+=1
+			if(self.map[p+1][q-1]==1) : t+=1
+			if(self.map[p-1][q-1]==1) : t+=1
+			if(self.map[p-1][q+1]==1) : t+=1
+			if(t==0) : turtle.pencolor("white")
+			if(t==1) : turtle.pencolor("green")
+			if(t==2) : turtle.pencolor("blue")
+			if(t==3) : turtle.pencolor("purple")
+			if(t==4) : turtle.pencolor("red")
+
+			# display progression with tk and turtle
 			self.display(x)
+
+			# random value
 			x = self.randomMode(1)
-			if(x==1) :
-				q += 1
-			if(x==2) :
-				p -= 1
-			if(x==3) :
-				q -= 1
-			if(x==4) :
+			if(x>0 and x<=90):
 				p += 1
+				q += 1
+			elif(x>90 and x<=180):
+				p += 1
+				q -= 1
+			elif(x>180 and x<=270):
+				p -= 1
+				q -= 1
+			elif(x>270 and x<=360):
+				p -= 1
+				q += 1
+			else : print '>>>> ERROR !!!'
+
+
 			y += 1
 		print '>>> ESSAI '+str(self.c)
 		print '>>> Nombre de coups : '+str(y)
@@ -105,4 +100,3 @@ if __name__ == '__main__':
 	t = int(raw_input('times : '))
 	z = int(raw_input('zoom : '))
 	i = IATron(n, m, t, z)
-	i.statistics()
