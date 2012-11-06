@@ -54,7 +54,10 @@ class IATron :
 			turtle.fd(self.z*10);
 
 	def randomMode(self, mode):
-		return random.randint(1, 4)
+		return random.randint(1, 4);
+
+	def ia(self):
+		
 
 	def core(self):
 		turtle.screensize(10000,10000)
@@ -70,17 +73,9 @@ class IATron :
 		# 
 		x = 0
 		y = 0
-		#while(self.map[p][q]!=1) :
-		while(True) :
-			self.map[p][q]+=1
-			c = self.map[p][q]
-			if(c==1): turtle.pencolor("white")
-			elif(c==2): turtle.pencolor("cyan")
-			elif(c==3): turtle.pencolor("green")
-			elif(c==4): turtle.pencolor("pink")
-			elif(c==5): turtle.pencolor("red")
-			elif(c==6): turtle.pencolor("orange")
-			else : turtle.pencolor("yellow")
+		# mouvement
+		while(self.map[p][q]!=1) :
+			self.map[p][q]=1
 			self.display(x)
 			x = self.randomMode(1)
 			if(x==1) :
